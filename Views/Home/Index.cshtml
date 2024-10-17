@@ -1,8 +1,38 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Главная страница";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Список товаров</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>Стоимость</th>
+            <th>Дата добавления</th>
+            <th>Изображение</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Price.ToString("C")</td>
+                <td>@item.CreatedAt.ToString("g")</td>
+                <td>
+                    <img src="@item.ImageUrl" alt="@item.Name" style="width: 100px; height: auto;" />
+                </td>
+                <td>
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Редактировать</a>
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Просмотреть</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Products" asp-action="Create" class="btn btn-primary">Добавить товар</a>

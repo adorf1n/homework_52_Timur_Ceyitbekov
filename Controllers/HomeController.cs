@@ -1,5 +1,6 @@
 using hw52.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace hw52.Controllers
@@ -8,14 +9,15 @@ namespace hw52.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _context.Products.Include(p => p.Category).Include(p => p.Brand).ToListAsync();
+            return View(products);
         }
 
         public IActionResult Privacy()
@@ -28,5 +30,11 @@ namespace hw52.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        private readonly ApplicationDbContext _context;
+
+        
+
+       
     }
 }

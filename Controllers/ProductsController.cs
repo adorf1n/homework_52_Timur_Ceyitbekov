@@ -19,8 +19,8 @@ public class ProductsController : Controller
 
     public IActionResult Create()
     {
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
-        ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name");
+        ViewBag.CategoryId = new SelectList(_context.Categories, "Id", "Name");
+        ViewBag.BrandId = new SelectList(_context.Brands, "Id", "Name");
         return View();
     }
 
@@ -34,10 +34,11 @@ public class ProductsController : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
-        ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name", product.BrandId);
+        ViewBag.CategoryId = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
+        ViewBag.BrandId = new SelectList(_context.Brands, "Id", "Name", product.BrandId);
         return View(product);
     }
+
 
     public async Task<IActionResult> Edit(int id)
     {
