@@ -1,0 +1,13 @@
+﻿@model Product
+
+<h2>Детали товара</h2>
+
+<div>
+    <h3>@Model.Name</h3>
+    <p>Стоимость: @Model.Price.ToString("C")</p>
+    <p>Дата добавления: @Model.CreatedAt.ToString("g")</p>
+    <img src="@Model.ImageUrl" alt="@Model.Name" style="width: 300px; height: auto;" />
+    <p>Категория: @Model.Category.Name</p>
+    <p>Бренд: @Model.Brand.Name</p>
+    <a asp-action="Index" class="btn btn-secondary">Назад</a>
+</div>
