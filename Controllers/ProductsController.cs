@@ -34,6 +34,7 @@ public class ProductsController : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
         ViewBag.CategoryId = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
         ViewBag.BrandId = new SelectList(_context.Brands, "Id", "Name", product.BrandId);
         return View(product);
